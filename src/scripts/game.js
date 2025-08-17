@@ -1,3 +1,5 @@
+import Tetrominos from "./tetrominos.js";
+
 const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
 
@@ -9,34 +11,6 @@ const CONFIG = {
     ROWS: 20,
     COLS: 10,
   },
-  TETROMINOS: {
-    J: [
-      [0, 0, 5],
-      [5, 5, 5],
-    ],
-    T: [
-      [1, 1, 1],
-      [0, 1, 0],
-    ],
-    I: [[2, 2, 2, 2]],
-    O: [
-      [3, 3],
-      [3, 3],
-    ],
-    L: [
-      [4, 0, 0],
-      [4, 4, 4],
-    ],
-    S: [
-      [0, 6, 6],
-      [6, 6, 0],
-    ],
-    Z: [
-      [7, 7, 0],
-      [0, 7, 7],
-    ],
-  },
-  COLORS: ["purple", "cyan", "yellow", "orange", "blue", "green", "red"],
   GAME: {
     DROP_INTERVAL_IN_MS: 1000, // 1 second
     FAST_DROP_INTERVAL_IN_MS: 50, // 0.05 seconds
@@ -71,22 +45,22 @@ const draw = {
   tetromino: (tetromino, offsetX, offsetY) => {
     const { cellWidth, cellHeight } = draw.getCellDimensions();
 
-    tetromino.matrix.forEach((row, y) => {
+    tetromino.shape.forEach((row, y) => {
       row.forEach((value, x) => {
         if (value !== 0) {
-          ctx.fillStyle = CONFIG.COLORS[value - 1];
+          ctx.fillStyle = tetromino.color;
           ctx.fillRect(
             (offsetX + x) * cellWidth,
             (offsetY + y) * cellHeight,
             cellWidth,
-            cellHeight
+            cellHeight,
           );
           ctx.strokeStyle = "#000";
           ctx.strokeRect(
             (offsetX + x) * cellWidth,
             (offsetY + y) * cellHeight,
             cellWidth,
-            cellHeight
+            cellHeight,
           );
         }
       });
@@ -124,12 +98,12 @@ const soundEffects = {
 };
 
 const getRandomTetromino = () => {
-  const availableTetrominos = Object.keys(CONFIG.TETROMINOS);
+  const availableTetrominos = Object.keys(Tetrominos);
   const randomIndex = Math.floor(Math.random() * availableTetrominos.length);
 
   return {
     name: availableTetrominos[randomIndex],
-    matrix: CONFIG.TETROMINOS[availableTetrominos[randomIndex]],
+    matrix: Tetrominos[availableTetrominos[randomIndex]],
   };
 };
 
