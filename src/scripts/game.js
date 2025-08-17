@@ -1,63 +1,7 @@
 import CONFIG from "./config.js";
 import Tetrominos from "./tetrominos.js";
 import onInput from "./inputManager.js";
-
-const canvas = document.getElementById("game-canvas");
-const ctx = canvas.getContext("2d");
-
-canvas.width = 400;
-canvas.height = 800;
-
-const draw = {
-  getCellDimensions: () => ({
-    cellWidth: canvas.width / CONFIG.GRID.COLS,
-    cellHeight: canvas.height / CONFIG.GRID.ROWS,
-  }),
-
-  grid: () => {
-    const { cellWidth, cellHeight } = draw.getCellDimensions();
-    ctx.strokeStyle = "#ccc";
-
-    for (let i = 0; i <= CONFIG.GRID.COLS; i++) {
-      ctx.beginPath();
-      ctx.moveTo(i * cellWidth, 0);
-      ctx.lineTo(i * cellWidth, canvas.height);
-      ctx.stroke();
-    }
-
-    for (let j = 0; j <= CONFIG.GRID.ROWS; j++) {
-      ctx.beginPath();
-      ctx.moveTo(0, j * cellHeight);
-      ctx.lineTo(canvas.width, j * cellHeight);
-      ctx.stroke();
-    }
-  },
-
-  tetromino: (tetromino, offsetX, offsetY) => {
-    const { cellWidth, cellHeight } = draw.getCellDimensions();
-
-    tetromino.shape.forEach((row, y) => {
-      row.forEach((value, x) => {
-        if (value !== 0) {
-          ctx.fillStyle = tetromino.color;
-          ctx.fillRect(
-            (offsetX + x) * cellWidth,
-            (offsetY + y) * cellHeight,
-            cellWidth,
-            cellHeight,
-          );
-          ctx.strokeStyle = "#000";
-          ctx.strokeRect(
-            (offsetX + x) * cellWidth,
-            (offsetY + y) * cellHeight,
-            cellWidth,
-            cellHeight,
-          );
-        }
-      });
-    });
-  },
-};
+import Renderer from "./renderer.js";
 
 const soundEffects = {
   music: (() => {
@@ -115,7 +59,7 @@ const handleStart = () => {
 
   soundEffects.drop();
 
-  draw.grid();
+  Renderer.drawGrid();
   gameState.isPaused = false;
 
   setTimeout(() => {
