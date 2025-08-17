@@ -172,3 +172,5 @@ const handleMoveRight = () => {};
 const handleRotate = () => {};
 const handleSoftDrop = () => {};
 const handleHardDrop = () => {};
+
+window.handleStart = handleStart;
