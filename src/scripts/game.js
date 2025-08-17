@@ -1,3 +1,4 @@
+import CONFIG from "./config.js";
 import Tetrominos from "./tetrominos.js";
 import onInput from "./inputManager.js";
 
@@ -6,17 +7,6 @@ const ctx = canvas.getContext("2d");
 
 canvas.width = 400;
 canvas.height = 800;
-
-const CONFIG = {
-  GRID: {
-    ROWS: 20,
-    COLS: 10,
-  },
-  GAME: {
-    DROP_INTERVAL_IN_MS: 1000, // 1 second
-    FAST_DROP_INTERVAL_IN_MS: 50, // 0.05 seconds
-  },
-};
 
 const draw = {
   getCellDimensions: () => ({
