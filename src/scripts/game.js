@@ -1,4 +1,5 @@
 import Tetrominos from "./tetrominos.js";
+import onInput from "./inputManager.js";
 
 const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
@@ -140,11 +141,10 @@ const handleGameOver = () => {
   soundEffects.gameOver();
 };
 
-const handleMoveLeft = () => {};
-const handleMoveRight = () => {};
-
-const handleRotate = () => {};
-const handleSoftDrop = () => {};
-const handleHardDrop = () => {};
+onInput("left", (_) => {});
+onInput("right", (_) => {});
+onInput("rotate", (_) => {});
+onInput("softDrop", (_) => {});
+onInput("hardDrop", (_) => {});
 
 window.handleStart = handleStart;
