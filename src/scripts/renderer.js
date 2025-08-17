@@ -27,25 +27,21 @@ function drawGrid() {
   }
 }
 
+function drawCell(x, y) {
+  const xInit = x * cellWidth;
+  const yInit = y * cellHeight;
+
+  ctx.fillRect(xInit, yInit, cellWidth, cellHeight);
+  ctx.strokeRect(xInit, yInit, cellWidth, cellHeight);
+}
+
 function drawTretromino(tetromino, offsetX, offsetY) {
   tetromino.shape.forEach((row, y) => {
     row.forEach((value, x) => {
-      if (value) {
-        ctx.fillStyle = tetromino.color;
-        ctx.fillRect(
-          (offsetX + x) * cellWidth,
-          (offsetY + y) * cellHeight,
-          cellWidth,
-          cellHeight,
-        );
-        ctx.strokeStyle = "#000";
-        ctx.strokeRect(
-          (offsetX + x) * cellWidth,
-          (offsetY + y) * cellHeight,
-          cellWidth,
-          cellHeight,
-        );
-      }
+      if (!value) return;
+      ctx.fillStyle = tetromino.color;
+      ctx.strokeStyle = "#000";
+      drawCell(offsetX + x, offsetY + y);
     });
   });
 }
