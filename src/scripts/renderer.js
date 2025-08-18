@@ -35,7 +35,7 @@ function drawCell(x, y) {
   ctx.strokeRect(xInit, yInit, cellWidth, cellHeight);
 }
 
-function drawTretromino(tetromino, offsetX, offsetY) {
+function drawTetromino(tetromino, offsetX, offsetY) {
   tetromino.shape.forEach((row, y) => {
     row.forEach((value, x) => {
       if (!value) return;
@@ -48,7 +48,7 @@ function drawTretromino(tetromino, offsetX, offsetY) {
 
 const Renderer = {
   drawGrid,
-  drawTretromino,
+  drawTetromino,
 };
 
 export default Renderer;
