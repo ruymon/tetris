@@ -2,35 +2,7 @@ import CONFIG from "./config.js";
 import Tetrominos from "./tetrominos.js";
 import onInput from "./inputManager.js";
 import Renderer from "./renderer.js";
-
-const soundEffects = {
-  music: (() => {
-    const audioInstance = new Audio("src/assets/music.wav");
-    audioInstance.loop = true;
-    audioInstance.volume = 0.05;
-    return () => audioInstance;
-  })(),
-  drop: () => {
-    const audioInstance = new Audio("src/assets/drop.wav");
-    audioInstance.volume = 0.1;
-    audioInstance.play();
-  },
-  hardDrop: () => {
-    const audioInstance = new Audio("src/assets/hard-drop.wav");
-    audioInstance.volume = 0.1;
-    audioInstance.play();
-  },
-  rotate: () => {
-    const audioInstance = new Audio("src/assets/rotate.wav");
-    audioInstance.volume = 0.1;
-    audioInstance.play();
-  },
-  gameOver: () => {
-    const audioInstance = new Audio("src/assets/game-over.wav");
-    audioInstance.volume = 0.1;
-    audioInstance.play();
-  },
-};
+import Sfx from "./sfx.js";
 
 const getRandomTetromino = () => {
   const availableTetrominos = Object.keys(Tetrominos);
@@ -57,13 +29,13 @@ const handleStart = () => {
 
   console.log("Game started");
 
-  soundEffects.drop();
+  Sfx.drop();
 
   Renderer.drawGrid();
   gameState.isPaused = false;
 
   setTimeout(() => {
-    soundEffects.drop();
+    Sfx.drop();
   }, 1000);
 };
 
@@ -72,7 +44,7 @@ const handlePause = () => {};
 const handleResume = () => {};
 
 const handleGameOver = () => {
-  soundEffects.gameOver();
+  Sfx.gameOver();
 };
 
 onInput("left", (_) => {});
